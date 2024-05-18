@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vulnerable Web Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+    <script>
+        // Vulnerable to XSS
+        function greetUser() {
+            var name = document.getElementById('name').value;
+            document.getElementById('greeting').innerHTML = "Hello, " + name + "!";
+        }
+    </script>
+</head>
+<body>
+    <h1>Vulnerable Web Page</h1>
+    
+    <!-- Vulnerable to SQL Injection (Server-Side Code) -->
+    <form action="process.php" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <br>
+        <button type="submit">Login</button>
+    </form>
+    
+    <!-- Vulnerable to XSS -->
+    <input type="text" id="name" placeholder="Enter your name">
+    <button onclick="greetUser()">Greet</button>
+    <p id="greeting"></p>
+
+    <!-- Vulnerable to CSRF -->
+    <form action="delete_account.php" method="POST">
+        <button type="submit">Delete Account</button>
+    </form>
+
+    <!-- Vulnerable to Open Redirect -->
+    <a href="http://example.com/login?redirect=http://malicious.com">Login</a>
+
+    <!-- Vulnerable to Clickjacking -->
+    <iframe src="http://example.com" width="500" height="500"></iframe>
+</body>
+</html>
